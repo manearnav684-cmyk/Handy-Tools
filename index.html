@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HandyTools - Free Online Tools</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 18px;
+  background: #0d1020;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  padding: 25px 10px;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #a78bfa;
+}
+
+header p {
+  color: #b8bfd8;
+}
+
+.hero {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.hero h1 {
+  font-size: 29px;
+}
+
+.hero span {
+  color: #a78bfa;
+}
+
+.card {
+  background: #191e33;
+  padding: 20px;
+  margin: 18px 0;
+  border: 1px solid #303854;
+  border-radius: 18px;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 21px;
+}
+
+p {
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  margin: 14px 0 6px;
+  color: #d8d9ed;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #414966;
+  background: #0d1020;
+  color: white;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  background: #7042dc;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.stat {
+  text-align: center;
+  padding: 12px 4px;
+  background: #252b45;
+  border-radius: 10px;
+}
+
+.stat strong {
+  display: block;
+  color: #c4b5fd;
+  font-size: 21px;
+}
+
+.stat small {
+  color: #c1c8df;
+  font-size: 11px;
+}
+
+.result {
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #252b45;
+  color: #c4b5fd;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  color: #9ca6c5;
+  font-size: 13px;
+  padding: 20px 0;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div class="logo">⚡ HandyTools</div>
+  <p>Simple tools for everyday life</p>
+</header>
+
+<section class="hero">
+  <h1>Welcome to <span>HandyTools</span></h1>
+  <p>Free tools. Fast results. No hassle.</p>
+</section>
+
+<section class="card">
+  <h2>📝 Word Counter</h2>
+  <p>Count words, characters and sentences instantly.</p>
+
+  <label for="text">Enter your text</label>
+  <textarea id="text"
+    placeholder="Start typing here..."></textarea>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="wordCount">0</strong>
+      <small>WORDS</small>
+    </div>
+    <div class="stat">
+      <strong id="charCount">0</strong>
+      <small>CHARACTERS</small>
+    </div>
+    <div class="stat">
+      <strong id="sentenceCount">0</strong>
+      <small>SENTENCES</small>
+    </div>
+  </div>
+
+  <button id="clearBtn">Clear Text</button>
+</section>
+
+<section class="card">
+  <h2>🧮 Percentage Calculator</h2>
+  <p>Find a percentage of any number.</p>
+
+  <label for="percent">Percentage (%)</label>
+  <input id="percent" type="number"
+    placeholder="Example: 20">
+
+  <label for="number">Number</label>
+  <input id="number" type="number"
+    placeholder="Example: 500">
+
+  <button id="calcBtn">Calculate</button>
+
+  <div class="result" id="answer" aria-live="polite">
+    Your answer will appear here.
+  </div>
+</section>
+
+<section class="card">
+  <h2>📈 Percentage Change</h2>
+  <p>Calculate the increase or decrease between two values.</p>
+
+  <label for="oldValue">Original value</label>
+  <input id="oldValue" type="number"
+    placeholder="Example: 100">
+
+  <label for="newValue">New value</label>
+  <input id="newValue" type="number"
+    placeholder="Example: 150">
+
+  <button id="changeBtn">Calculate Change</button>
+
+  <div class="result" id="changeAnswer" aria-live="polite">
+    Your result will appear here.
+  </div>
+</section>
+
+<footer>
+  <p>⚡ HandyTools</p>
+  <p>Free tools made for everyone.</p>
+</footer>
+
+</div>
+
+<script>
+const textBox = document.getElementById("text");
+
+textBox.addEventListener("input", function() {
+  const value = textBox.value;
+  const trimmed = value.trim();
+
+  const words = trimmed
+    ? trimmed.split(/\s+/).length
+    : 0;
+
+  const sentences = trimmed
+    ? (trimmed.match(/[.!?]+(?=\s|$)/g) || []).length
+    : 0;
+
+  document.getElementById("wordCount").textContent = words;
+  document.getElementById("charCount").textContent = value.length;
+  document.getElementById("sentenceCount").textContent = sentences;
+});
+
+document.getElementById("clearBtn").addEventListener("click", function() {
+  textBox.value = "";
+  textBox.dispatchEvent(new Event("input"));
+});
+
+document.getElementById("calcBtn").addEventListener("click", function() {
+  const p = document.getElementById("percent").value.trim();
+  const n = document.getElementById("number").value.trim();
+  const output = document.getElementById("answer");
+
+  if (p === "" || n === "") {
+    output.textContent = "Please enter both values.";
+    return;
+  }
+
+  const percentage = Number(p);
+  const number = Number(n);
+
+  if (!Number.isFinite(percentage) || !Number.isFinite(number)) {
+    output.textContent = "Please enter valid numbers.";
+    return;
+  }
+
+  const result = percentage / 100 * number;
+  output.textContent = percentage + "% of " + number + " = " +
+    Number(result.toPrecision(10));
+});
+
+document.getElementById("changeBtn").addEventListener("click", function() {
+  const oldText = document.getElementById("oldValue").value.trim();
+  const newText = document.getElementById("newValue").value.trim();
+  const output = document.getElementById("changeAnswer");
+
+  if (oldText === "" || newText === "") {
+    output.textContent = "Please enter both values.";
+    return;
+  }
+
+  const oldNum = Number(oldText);
+  const newNum = Number(newText);
+
+  if (!Number.isFinite(oldNum) || !Number.isFinite(newNum)) {
+    output.textContent = "Please enter valid numbers.";
+    return;
+  }
+
+  if (oldNum === 0) {
+    output.textContent = "Original value must not be zero.";
+    return;
+  }
+
+  const change = ((newNum - oldNum) / Math.abs(oldNum)) * 100;
+  const rounded = Number(change.toFixed(2));
+
+  if (change > 0) {
+    output.textContent = "Increase: " + rounded + "%";
+  } else if (change < 0) {
+    output.textContent = "Decrease: " + Math.abs(rounded) + "%";
+  } else {
+    output.textContent = "No change: 0%";
+  }
+});
+</script>
+</body>
+  </html>
+  
